@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+  <Include href="KnownImageIds.vsct"/>
+  <Include href="VSGlobals.vsct"/>
+
+	<Commands package="DoxyTools">
+		<Groups>
+			<Group guid="DoxyTools" id="MyMenuGroup" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+			</Group>
+		</Groups>
+
+		<Buttons>
+			<Button guid="DoxyTools" id="GenerateDocs" priority="0x0100" type="Button">
+				<Parent guid="DoxyTools" id="MyMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="StatusInformation" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Generate Doxygen Docs</ButtonText>
+					<LocCanonicalName>.DoxyTools.GenerateDocs</LocCanonicalName>
+				</Strings>
+			</Button>
+		</Buttons>
+	</Commands>
+
+  <Symbols>
+	  <GuidSymbol name="DoxyTools" value="{3be68a4e-444c-4cc1-b6a4-1e7c24dfd3d0}">
+		  <IDSymbol name="MyMenuGroup" value="0x0001" />
+		  <IDSymbol name="GenerateDocs" value="0x0100" />
+	  </GuidSymbol>
+  </Symbols>
+</CommandTable>
