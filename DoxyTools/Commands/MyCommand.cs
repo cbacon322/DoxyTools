@@ -129,6 +129,8 @@ namespace DoxyTools
 
             try
             {
+                Debug.WriteLine($"Running Doxygen for: {doxyfilePath}");
+
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = "doxygen",
@@ -136,7 +138,8 @@ namespace DoxyTools
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
+                    WorkingDirectory = Path.GetDirectoryName(doxyfilePath) // Set the working directory
                 };
 
                 using (var process = System.Diagnostics.Process.Start(startInfo))
@@ -171,6 +174,5 @@ namespace DoxyTools
                 Debug.WriteLine($"Error running Doxygen: {ex.Message}");
             }
         }
-
     }
 }
