@@ -4,12 +4,14 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.Threading;
+using Microsoft;
 
 namespace DoxyTools
 {
@@ -92,60 +94,83 @@ namespace DoxyTools
             }
         }
 
-        private void RunDoxygen(string doxyfilePath)
+        private async Task<EnvDTE.OutputWindowPane> GetOutputWindowPaneAsync(string paneName, bool create = true)
         {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            DTE2 dte2 = await ServiceProvider.GetGlobalServiceAsync(typeof(SDTE)) as DTE2;
+            if (dte2 == null)
+            {
+                Debug.WriteLine("Unable to get DTE2 service.");
+                return null;
+            }
+
+            OutputWindow outputWindow = dte2.ToolWindows.OutputWindow;
+            EnvDTE.OutputWindowPane pane = null;
+
             try
             {
-                // Assuming that the doxygen executable is in the system's PATH.
-                string doxygenExecutable = "doxygen";
+                pane = outputWindow.OutputWindowPanes.Item(paneName);
+            }
+            catch (ArgumentException)
+            {
+                if (create)
+                {
+                    pane = outputWindow.OutputWindowPanes.Add(paneName);
+                }
+            }
 
-                // If doxygen is not in PATH, specify the full path to the executable
-                // Example: string doxygenExecutable = @"C:\Path\To\Doxygen\bin\doxygen";
+            return pane;
+        }
 
+        private async Task RunDoxygen(string doxyfilePath)
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            try
+            {
                 var startInfo = new ProcessStartInfo
                 {
-                    FileName = doxygenExecutable,
+                    FileName = "doxygen",
                     Arguments = $"\"{doxyfilePath}\"",
-                    UseShellExecute = false, // To redirect output
-                    RedirectStandardOutput = true, // To capture the standard output
-                    RedirectStandardError = true, // To capture the standard error
-                    CreateNoWindow = false, // We want a window to be created
-                    WorkingDirectory = Path.GetDirectoryName(doxyfilePath) // Set the working directory
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
                 };
 
-                // Start the process and capture its output
-                var process = new System.Diagnostics.Process
+                using (var process = System.Diagnostics.Process.Start(startInfo))
                 {
-                    StartInfo = startInfo,
-                    EnableRaisingEvents = true // Allows us to capture the output asynchronously
-                };
-
-                process.OutputDataReceived += (sender, e) => {
-                    if (!string.IsNullOrEmpty(e.Data))
+                    // Get the Output Window Pane
+                    var outputPane = await GetOutputWindowPaneAsync("Doxygen Output", true);
+                    if (outputPane == null)
                     {
-                        Debug.WriteLine(e.Data); // This will output to your Visual Studio Output window
+                        Debug.WriteLine("Unable to get Output Window Pane.");
+                        return;
                     }
-                };
 
-                process.ErrorDataReceived += (sender, e) => {
-                    if (!string.IsNullOrEmpty(e.Data))
+                    // Read standard output and write to the Output Window
+                    while (!process.StandardOutput.EndOfStream)
                     {
-                        Debug.WriteLine($"ERROR: {e.Data}");
+                        string line = await process.StandardOutput.ReadLineAsync();
+                        outputPane.OutputString(line + Environment.NewLine);
                     }
-                };
 
-                process.Start(); // Start the process
+                    // Read standard error and write to the Output Window
+                    while (!process.StandardError.EndOfStream)
+                    {
+                        string line = await process.StandardError.ReadLineAsync();
+                        outputPane.OutputString("ERROR: " + line + Environment.NewLine);
+                    }
 
-                // Begin asynchronously reading the standard output and the standard error
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-
-                process.WaitForExit(); // Wait for the process to exit
+                    process.WaitForExit();
+                }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error running Doxygen: {ex.Message}");
             }
         }
+
     }
 }
