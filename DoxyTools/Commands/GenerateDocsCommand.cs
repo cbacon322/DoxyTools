@@ -1,4 +1,4 @@
-﻿// MyCommand.cs
+﻿// GenerateDocsCommand.cs
 
 using System.Diagnostics;
 using System.IO;
@@ -27,7 +27,7 @@ namespace DoxyTools.Commands
                 if (project == null)
                 {
                     // Show error message in Output Window if no project is selected.
-                    await OutputWindowHelper.ShowMessageInOutputWindowAsync("No project selected.");
+                    await OutputUtilities.ShowMessageInOutputWindowAsync("No project selected.");
                     return;
                 }
 
@@ -40,7 +40,7 @@ namespace DoxyTools.Commands
                 string doxyfilePath = Path.Combine(projectDirectory, "Doxyfile");
                 if (!File.Exists(doxyfilePath))
                 {
-                    await OutputWindowHelper.ShowMessageInOutputWindowAsync("Doxyfile not found.");
+                    await OutputUtilities.ShowMessageInOutputWindowAsync("Doxyfile not found.");
                     return;
                 }
 
@@ -48,12 +48,12 @@ namespace DoxyTools.Commands
             }
             catch (Exception ex)
             {
-                await OutputWindowHelper.ShowMessageInOutputWindowAsync($"Error occurred: {ex.Message}");
+                await OutputUtilities.ShowMessageInOutputWindowAsync($"Error occurred: {ex.Message}");
                 errorCount++;
             }
             finally
             {
-                OutputWindowPane outputPane = await OutputWindowHelper.GetOutputWindowPaneAsync("Doxygen Output", true);
+                OutputWindowPane outputPane = await OutputUtilities.GetOutputWindowPaneAsync("Doxygen Output", true);
                 if (outputPane != null)
                 {
                     outputPane.OutputString($"Exiting Process.\n");
@@ -87,7 +87,7 @@ namespace DoxyTools.Commands
 
                 using (var process = Process.Start(startInfo))
                 {
-                    var outputPane = await OutputWindowHelper.GetOutputWindowPaneAsync("Doxygen Output", true);
+                    var outputPane = await OutputUtilities.GetOutputWindowPaneAsync("Doxygen Output", true);
                     if (outputPane == null)
                     {
                         return;
@@ -112,43 +112,7 @@ namespace DoxyTools.Commands
             }
             catch (Exception ex)
             {
-                await OutputWindowHelper.ShowMessageInOutputWindowAsync($"Error running Doxygen: {ex.Message}");
-            }
-        }
-    }
-
-    // Command for viewing the generated documentation
-    [Command(PackageIds.ViewDocs)]
-    internal sealed class ViewDocsCommand : BaseCommand<ViewDocsCommand>
-    {
-        protected override async Task ExecuteAsync(OleMenuCmdEventArgs e)
-        {
-            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
-
-            try
-            {
-                var project = ProjectUtilities.GetActiveProject();
-                if (project == null)
-                {
-                    await OutputWindowHelper.ShowMessageInOutputWindowAsync("No project selected.");
-                    return;
-                }
-
-                string projectName = project.Name;
-                string solutionDir = Path.GetDirectoryName(project.DTE.Solution.FullName);
-                string docsPath = Path.Combine(solutionDir, "_Documentation", projectName, "html", "index.html");
-
-                if (!File.Exists(docsPath))
-                {
-                    await OutputWindowHelper.ShowMessageInOutputWindowAsync("Documentation file not found.");
-                    return;
-                }
-
-                Process.Start(new ProcessStartInfo(docsPath) { UseShellExecute = true });
-            }
-            catch (Exception ex)
-            {
-                await OutputWindowHelper.ShowMessageInOutputWindowAsync($"Error opening documentation: {ex.Message}");
+                await OutputUtilities.ShowMessageInOutputWindowAsync($"Error running Doxygen: {ex.Message}");
             }
         }
     }

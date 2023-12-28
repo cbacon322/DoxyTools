@@ -1,4 +1,4 @@
-﻿// OutputWindowHelper.cs
+﻿// OutputUtilities.cs
 
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -9,7 +9,7 @@ using OutputWindowPane = EnvDTE.OutputWindowPane;
 
 namespace DoxyTools
 {
-    public static class OutputWindowHelper
+    public static class OutputUtilities
     {
         public static async Task ShowMessageInOutputWindowAsync(string message)
         {
