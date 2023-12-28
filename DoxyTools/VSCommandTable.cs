@@ -22,5 +22,6 @@ namespace DoxyTools
     {
         public const int MyMenuGroup = 0x0001;
         public const int GenerateDocs = 0x0100;
+        public const int ViewDocs = 0x0101;
     }
 }

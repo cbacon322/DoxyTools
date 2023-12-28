@@ -16,11 +16,20 @@
 		<Buttons>
 			<Button guid="DoxyTools" id="GenerateDocs" priority="0x0100" type="Button">
 				<Parent guid="DoxyTools" id="MyMenuGroup" />
-				<Icon guid="ImageCatalogGuid" id="StatusInformation" />
+				<Icon guid="ImageCatalogGuid" id="EditDocument" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
 					<ButtonText>Generate Doxygen Docs</ButtonText>
 					<LocCanonicalName>.DoxyTools.GenerateDocs</LocCanonicalName>
+				</Strings>
+			</Button>
+			<Button guid="DoxyTools" id="ViewDocs" priority="0x0100" type="Button">
+				<Parent guid="DoxyTools" id="MyMenuGroup" />
+				<Icon guid="ImageCatalogGuid" id="PrintPreview" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>View Current Docs</ButtonText>
+					<LocCanonicalName>.DoxyTools.ViewDocs</LocCanonicalName>
 				</Strings>
 			</Button>
 		</Buttons>
@@ -30,6 +39,7 @@
 	  <GuidSymbol name="DoxyTools" value="{3be68a4e-444c-4cc1-b6a4-1e7c24dfd3d0}">
 		  <IDSymbol name="MyMenuGroup" value="0x0001" />
 		  <IDSymbol name="GenerateDocs" value="0x0100" />
+		  <IDSymbol name="ViewDocs" value="0x0101" />
 	  </GuidSymbol>
   </Symbols>
 </CommandTable>
