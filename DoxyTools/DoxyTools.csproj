@@ -45,6 +45,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\GenerateAllDocsCommand.cs" />
     <Compile Include="Commands\GenerateDocsCommand.cs" />
     <Compile Include="Commands\ViewDocsCommand.cs" />
     <Compile Include="Utilities\OutputUtilities.cs" />

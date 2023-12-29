@@ -1,21 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <Extern href="stdidcmd.h"/>
-  <Extern href="vsshlids.h"/>
-  <Include href="KnownImageIds.vsct"/>
-  <Include href="VSGlobals.vsct"/>
+	<Extern href="stdidcmd.h"/>
+	<Extern href="vsshlids.h"/>
+	<Include href="KnownImageIds.vsct"/>
+	<Include href="VSGlobals.vsct"/>
 
 	<Commands package="DoxyTools">
 		<Groups>
-			<Group guid="DoxyTools" id="MyMenuGroup" priority="0x0600">
+			<Group guid="DoxyTools" id="ProjectRightClick" priority="0x0600">
 				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE"/>
+			</Group>
+			<Group guid="DoxyTools" id="ExtensionsTab" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_EXTENSIONS"/>
 			</Group>
 		</Groups>
 
 		<Buttons>
 			<Button guid="DoxyTools" id="GenerateDocs" priority="0x0100" type="Button">
-				<Parent guid="DoxyTools" id="MyMenuGroup" />
+				<Parent guid="DoxyTools" id="ProjectRightClick" />
 				<Icon guid="ImageCatalogGuid" id="EditDocument" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
@@ -24,7 +27,7 @@
 				</Strings>
 			</Button>
 			<Button guid="DoxyTools" id="ViewDocs" priority="0x0100" type="Button">
-				<Parent guid="DoxyTools" id="MyMenuGroup" />
+				<Parent guid="DoxyTools" id="ProjectRightClick" />
 				<Icon guid="ImageCatalogGuid" id="PrintPreview" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
@@ -32,14 +35,28 @@
 					<LocCanonicalName>.DoxyTools.ViewDocs</LocCanonicalName>
 				</Strings>
 			</Button>
+			<Button guid="DoxyTools" id="GenerateAllDocs" priority="0x0100" type="Button">
+				<Parent guid="DoxyTools" id="ExtensionsTab" />
+				<Icon guid="ImageCatalogGuid" id="Solution" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
+				<Strings>
+					<ButtonText>Generate All Doxygen Docs</ButtonText>
+					<LocCanonicalName>.DoxyTools.GenerateAllDocs</LocCanonicalName>
+				</Strings>
+			</Button>
 		</Buttons>
 	</Commands>
 
-  <Symbols>
-	  <GuidSymbol name="DoxyTools" value="{3be68a4e-444c-4cc1-b6a4-1e7c24dfd3d0}">
-		  <IDSymbol name="MyMenuGroup" value="0x0001" />
-		  <IDSymbol name="GenerateDocs" value="0x0100" />
-		  <IDSymbol name="ViewDocs" value="0x0101" />
-	  </GuidSymbol>
-  </Symbols>
+	<Symbols>
+		<GuidSymbol name="DoxyTools" value="{3be68a4e-444c-4cc1-b6a4-1e7c24dfd3d0}">
+			<IDSymbol name="ProjectRightClick" value="0x0001" />
+			<IDSymbol name="ExtensionsTab" value="0x1020"/>
+			<IDSymbol name="GenerateDocs" value="0x0100" />
+			<IDSymbol name="ViewDocs" value="0x0101" />
+			<IDSymbol name="GenerateAllDocs" value="0x01021" />
+		</GuidSymbol>
+		<GuidSymbol name="guidSHLMainMenu" value="{d309f791-903f-11d0-9efc-00a0c911004f}">
+			<IDSymbol name="IDM_VS_MENU_EXTENSIONS" value="0x0091" />
+		</GuidSymbol>
+	</Symbols>
 </CommandTable>

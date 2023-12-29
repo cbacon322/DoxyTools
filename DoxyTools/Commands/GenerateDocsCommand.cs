@@ -62,7 +62,7 @@ namespace DoxyTools.Commands
         }
 
         // Runs the Doxygen process with the specified Doxyfile.
-        private async Task RunDoxygen(string doxyfilePath)
+        public static async Task RunDoxygen(string doxyfilePath)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
