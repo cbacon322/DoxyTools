@@ -28,6 +28,8 @@ namespace DoxyTools
         public const int GenerateDocs = 0x0100;
         public const int ViewDocs = 0x0101;
         public const int GenerateAllDocs = 0x1021;
+        public const int GenerateSolutionDocs = 0x0103;
+        public const int SolutionRightClick = 0x0104;
         public const int IDM_VS_MENU_EXTENSIONS = 0x0091;
     }
 }

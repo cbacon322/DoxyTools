@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="DoxyTools.c076aebc-f08b-46e6-a2c1-46dfe21f44fe" Version="1.2" Language="en-US" Publisher="Company" />
+        <Identity Id="DoxyTools.c076aebc-f08b-46e6-a2c1-46dfe21f44fe" Version="1.3" Language="en-US" Publisher="Company" />
         <DisplayName>DoxyTools</DisplayName>
         <Description xml:space="preserve">Using Doxygen from the comfort of Visual Studio.</Description>
         <Icon>Resources\Icon.png</Icon>

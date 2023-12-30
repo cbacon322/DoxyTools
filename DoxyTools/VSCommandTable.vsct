@@ -14,34 +14,46 @@
 			<Group guid="DoxyTools" id="ExtensionsTab" priority="0x0600">
 				<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_EXTENSIONS"/>
 			</Group>
+			<Group guid="DoxyTools" id="SolutionRightClick" priority="0x0600">
+				<Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE"/>
+			</Group>
 		</Groups>
 
 		<Buttons>
-			<Button guid="DoxyTools" id="GenerateDocs" priority="0x0100" type="Button">
-				<Parent guid="DoxyTools" id="ProjectRightClick" />
+			<Button guid="DoxyTools" id="GenerateSolutionDocs" priority="0x0100" type="Button">
+				<Parent guid="DoxyTools" id="SolutionRightClick" />
 				<Icon guid="ImageCatalogGuid" id="EditDocument" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
-					<ButtonText>Generate Doxygen Docs</ButtonText>
-					<LocCanonicalName>.DoxyTools.GenerateDocs</LocCanonicalName>
+					<ButtonText>Generate Doxygen Docs for Solution</ButtonText>
+					<LocCanonicalName>.DoxyTools.GenerateSolutionDocs</LocCanonicalName>
 				</Strings>
 			</Button>
+
 			<Button guid="DoxyTools" id="ViewDocs" priority="0x0100" type="Button">
 				<Parent guid="DoxyTools" id="ProjectRightClick" />
 				<Icon guid="ImageCatalogGuid" id="PrintPreview" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
-					<ButtonText>View Current Docs</ButtonText>
+					<ButtonText>View Current Docs For This Project</ButtonText>
 					<LocCanonicalName>.DoxyTools.ViewDocs</LocCanonicalName>
 				</Strings>
 			</Button>
 			<Button guid="DoxyTools" id="GenerateAllDocs" priority="0x0100" type="Button">
 				<Parent guid="DoxyTools" id="ExtensionsTab" />
-				<Icon guid="ImageCatalogGuid" id="Solution" />
+				<Icon guid="ImageCatalogGuid" id="DocumentCollection" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
-					<ButtonText>Generate All Doxygen Docs</ButtonText>
+					<ButtonText>Generate Doxygen Docs For All Projects</ButtonText>
 					<LocCanonicalName>.DoxyTools.GenerateAllDocs</LocCanonicalName>
+				</Strings>
+			</Button>
+			<Button guid="DoxyTools" id="GenerateSolutionDocs" priority="0x0100" type="Button">
+				<Parent guid="DoxyTools" id="SolutionRightClick" />
+				<Icon guid="ImageCatalogGuid" id="EditDocument" />
+				<Strings>
+					<ButtonText>Generate Doxygen Docs for Solution</ButtonText>
+					<LocCanonicalName>.DoxyTools.GenerateSolutionDocs</LocCanonicalName>
 				</Strings>
 			</Button>
 		</Buttons>
@@ -54,6 +66,8 @@
 			<IDSymbol name="GenerateDocs" value="0x0100" />
 			<IDSymbol name="ViewDocs" value="0x0101" />
 			<IDSymbol name="GenerateAllDocs" value="0x01021" />
+			<IDSymbol name="GenerateSolutionDocs" value="0x0103" />
+			<IDSymbol name="SolutionRightClick" value="0x0104" />
 		</GuidSymbol>
 		<GuidSymbol name="guidSHLMainMenu" value="{d309f791-903f-11d0-9efc-00a0c911004f}">
 			<IDSymbol name="IDM_VS_MENU_EXTENSIONS" value="0x0091" />
