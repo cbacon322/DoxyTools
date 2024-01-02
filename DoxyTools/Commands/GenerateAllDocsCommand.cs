@@ -23,7 +23,21 @@ namespace DoxyTools.Commands
 
                 foreach (EnvDTE.Project project in dte.Solution.Projects)
                 {
+                    // Check if the project is a valid project (not a solution folder or miscellaneous project)
+                    if (project.Kind == EnvDTE80.ProjectKinds.vsProjectKindSolutionFolder ||
+                        project.Kind == EnvDTE.Constants.vsProjectKindMisc)
+                    {
+                        continue; // Skip this iteration
+                    }
+
                     string projectDirectory = Path.GetDirectoryName(project.FullName);
+
+                    // Check for null or empty directory
+                    if (string.IsNullOrEmpty(projectDirectory))
+                    {
+                        continue; // Skip this iteration
+                    }
+
                     string doxyfilePath = Path.Combine(projectDirectory, "Doxyfile");
 
                     if (File.Exists(doxyfilePath))

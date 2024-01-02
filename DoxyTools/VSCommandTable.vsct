@@ -20,16 +20,15 @@
 		</Groups>
 
 		<Buttons>
-			<Button guid="DoxyTools" id="GenerateSolutionDocs" priority="0x0100" type="Button">
-				<Parent guid="DoxyTools" id="SolutionRightClick" />
+			<Button guid="DoxyTools" id="GenerateDocs" priority="0x0100" type="Button">
+				<Parent guid="DoxyTools" id="ProjectRightClick" />
 				<Icon guid="ImageCatalogGuid" id="EditDocument" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
-					<ButtonText>Generate Doxygen Docs for Solution</ButtonText>
-					<LocCanonicalName>.DoxyTools.GenerateSolutionDocs</LocCanonicalName>
+					<ButtonText>Generate Doxygen Docs</ButtonText>
+					<LocCanonicalName>.DoxyTools.GenerateDocs</LocCanonicalName>
 				</Strings>
 			</Button>
-
 			<Button guid="DoxyTools" id="ViewDocs" priority="0x0100" type="Button">
 				<Parent guid="DoxyTools" id="ProjectRightClick" />
 				<Icon guid="ImageCatalogGuid" id="PrintPreview" />
@@ -51,6 +50,7 @@
 			<Button guid="DoxyTools" id="GenerateSolutionDocs" priority="0x0100" type="Button">
 				<Parent guid="DoxyTools" id="SolutionRightClick" />
 				<Icon guid="ImageCatalogGuid" id="EditDocument" />
+				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
 					<ButtonText>Generate Doxygen Docs for Solution</ButtonText>
 					<LocCanonicalName>.DoxyTools.GenerateSolutionDocs</LocCanonicalName>
