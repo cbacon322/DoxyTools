@@ -45,10 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\CancelGenerationCommand.cs" />
     <Compile Include="Commands\GenerateAllDocsCommand.cs" />
     <Compile Include="Commands\GenerateDocsCommand.cs" />
     <Compile Include="Commands\GenerateSolutionDocsCommand.cs" />
     <Compile Include="Commands\ViewDocsCommand.cs" />
+    <Compile Include="Utilities\GenerationControl.cs" />
     <Compile Include="Utilities\OutputUtilities.cs" />
     <Compile Include="Utilities\ProjectUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

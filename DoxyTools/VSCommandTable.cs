@@ -30,6 +30,7 @@ namespace DoxyTools
         public const int GenerateAllDocs = 0x1021;
         public const int GenerateSolutionDocs = 0x0103;
         public const int SolutionRightClick = 0x0104;
+        public const int CancelGeneration = 0x0105;
         public const int IDM_VS_MENU_EXTENSIONS = 0x0091;
     }
 }

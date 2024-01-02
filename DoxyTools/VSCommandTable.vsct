@@ -25,7 +25,7 @@
 				<Icon guid="ImageCatalogGuid" id="EditDocument" />
 				<CommandFlag>IconIsMoniker</CommandFlag>
 				<Strings>
-					<ButtonText>Generate Doxygen Docs</ButtonText>
+					<ButtonText>Generate Doxygen Docs For This Project</ButtonText>
 					<LocCanonicalName>.DoxyTools.GenerateDocs</LocCanonicalName>
 				</Strings>
 			</Button>
@@ -56,6 +56,14 @@
 					<LocCanonicalName>.DoxyTools.GenerateSolutionDocs</LocCanonicalName>
 				</Strings>
 			</Button>
+			<Button guid="DoxyTools" id="CancelGeneration" priority="0x0100" type="Button">
+				<Parent guid="DoxyTools" id="ExtensionsTab" />
+				<Icon guid="ImageCatalogGuid" id="Cancel" />
+				<Strings>
+					<ButtonText>Cancel Doc Generation</ButtonText>
+					<LocCanonicalName>.DoxyTools.CancelGeneration</LocCanonicalName>
+				</Strings>
+			</Button>
 		</Buttons>
 	</Commands>
 
@@ -68,6 +76,7 @@
 			<IDSymbol name="GenerateAllDocs" value="0x01021" />
 			<IDSymbol name="GenerateSolutionDocs" value="0x0103" />
 			<IDSymbol name="SolutionRightClick" value="0x0104" />
+			<IDSymbol name="CancelGeneration" value="0x0105"/>
 		</GuidSymbol>
 		<GuidSymbol name="guidSHLMainMenu" value="{d309f791-903f-11d0-9efc-00a0c911004f}">
 			<IDSymbol name="IDM_VS_MENU_EXTENSIONS" value="0x0091" />

@@ -97,12 +97,26 @@ namespace DoxyTools.Commands
 
                     while (!process.StandardOutput.EndOfStream)
                     {
+                        if (GenerationControl.CancellationTokenSource.IsCancellationRequested)
+                        {
+                            // Optionally: Send a message to output window indicating cancellation
+                            outputPane.OutputString("Generation cancelled by user.\n");
+                            process.Kill(); // Terminate the process
+                            break;
+                        }
+
                         string line = await process.StandardOutput.ReadLineAsync();
                         outputPane.OutputString(line + Environment.NewLine);
                     }
 
                     while (!process.StandardError.EndOfStream)
                     {
+                        if (GenerationControl.CancellationTokenSource.IsCancellationRequested)
+                        {
+                            // Process is already killed, no further action needed here.
+                            break;
+                        }
+
                         string line = await process.StandardError.ReadLineAsync();
                         outputPane.OutputString("ERROR: " + line + Environment.NewLine);
                     }

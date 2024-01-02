@@ -11,7 +11,7 @@ namespace DoxyTools
         public const string Name = "DoxyTools";
         public const string Description = @"Using Doxygen from the comfort of Visual Studio.";
         public const string Language = "en-US";
-        public const string Version = "1.3";
+        public const string Version = "1.4";
         public const string Author = "Company";
         public const string Tags = "";
     }
