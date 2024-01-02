@@ -41,7 +41,7 @@ namespace DoxyTools.Commands
                     return;
                 }
 
-                await GenerateDocsCommand.RunDoxygen(doxyfilePath);
+                await GenerateDocsCommand.RunDoxygen(doxyfilePath, GenerationControl.CancellationTokenSource.Token);
             }
             catch (Exception ex)
             {

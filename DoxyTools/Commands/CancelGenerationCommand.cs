@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿// CancelGenerationCommand.cs
+
+using Microsoft.VisualStudio.Shell;
 using System;
 using System.ComponentModel.Design;
 

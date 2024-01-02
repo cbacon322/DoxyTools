@@ -2,6 +2,7 @@
 
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell.Interop;
 using OutputWindowPane = EnvDTE.OutputWindowPane;
@@ -44,7 +45,7 @@ namespace DoxyTools.Commands
                     return;
                 }
 
-                await RunDoxygen(doxyfilePath);
+                await RunDoxygen(doxyfilePath, GenerationControl.CancellationTokenSource.Token);
             }
             catch (Exception ex)
             {
@@ -62,17 +63,14 @@ namespace DoxyTools.Commands
         }
 
         // Runs the Doxygen process with the specified Doxyfile.
-        public static async Task RunDoxygen(string doxyfilePath)
+        public static async Task RunDoxygen(string doxyfilePath, CancellationToken cancellationToken)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
             try
             {
                 var dte2 = await ServiceProvider.GetGlobalServiceAsync(typeof(SDTE)) as DTE2;
-                if (dte2 == null)
-                {
-                    return;
-                }
+                if (dte2 == null) return;
 
                 var startInfo = new ProcessStartInfo
                 {
@@ -88,21 +86,18 @@ namespace DoxyTools.Commands
                 using (var process = Process.Start(startInfo))
                 {
                     var outputPane = await OutputUtilities.GetOutputWindowPaneAsync("Doxygen Output", true);
-                    if (outputPane == null)
-                    {
-                        return;
-                    }
+                    if (outputPane == null) return;
 
                     dte2.ExecuteCommand("View.Output", string.Empty);
 
+                    // Monitor output and check for cancellation
                     while (!process.StandardOutput.EndOfStream)
                     {
-                        if (GenerationControl.CancellationTokenSource.IsCancellationRequested)
+                        if (cancellationToken.IsCancellationRequested)
                         {
-                            // Optionally: Send a message to output window indicating cancellation
-                            outputPane.OutputString("Generation cancelled by user.\n");
-                            process.Kill(); // Terminate the process
-                            break;
+                            process.Kill();
+                            outputPane.OutputString("Doxygen generation cancelled.\n");
+                            return;
                         }
 
                         string line = await process.StandardOutput.ReadLineAsync();
@@ -111,12 +106,6 @@ namespace DoxyTools.Commands
 
                     while (!process.StandardError.EndOfStream)
                     {
-                        if (GenerationControl.CancellationTokenSource.IsCancellationRequested)
-                        {
-                            // Process is already killed, no further action needed here.
-                            break;
-                        }
-
                         string line = await process.StandardError.ReadLineAsync();
                         outputPane.OutputString("ERROR: " + line + Environment.NewLine);
                     }

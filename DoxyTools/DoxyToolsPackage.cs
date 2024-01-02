@@ -6,6 +6,7 @@ global using System;
 global using Task = System.Threading.Tasks.Task;
 using System.Runtime.InteropServices;
 using System.Threading;
+using DoxyTools.Commands; // Add this to use your command classes
 
 namespace DoxyTools
 {
@@ -17,7 +18,12 @@ namespace DoxyTools
     {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            await this.RegisterCommandsAsync();
+            // Initialize your specific commands
+            await GenerateDocsCommand.InitializeAsync(this);
+            await ViewDocsCommand.InitializeAsync(this);
+            await GenerateAllDocsCommand.InitializeAsync(this);
+            await GenerateSolutionDocsCommand.InitializeAsync(this);
+            await CancelGenerationCommand.InitializeAsync(this);
         }
     }
 }

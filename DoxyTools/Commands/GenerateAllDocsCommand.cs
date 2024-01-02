@@ -42,7 +42,7 @@ namespace DoxyTools.Commands
 
                     if (File.Exists(doxyfilePath))
                     {
-                        await GenerateDocsCommand.RunDoxygen(doxyfilePath);
+                        await GenerateDocsCommand.RunDoxygen(doxyfilePath, GenerationControl.CancellationTokenSource.Token);
                     }
                 }
             }

@@ -1,17 +1,18 @@
-﻿using System.Threading;
+﻿// GenerationControl.cs
 
-namespace DoxyTools
+using System.Threading;
+
+public static class GenerationControl
 {
-    public static class GenerationControl
-    {
-        public static CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
+    public static CancellationTokenSource CancellationTokenSource = new CancellationTokenSource();
 
-        public static void CancelGeneration()
+    public static void CancelGeneration()
+    {
+        if (!CancellationTokenSource.IsCancellationRequested)
         {
-            if (!CancellationTokenSource.IsCancellationRequested)
-            {
-                CancellationTokenSource.Cancel();
-            }
+            CancellationTokenSource.Cancel();
+            // Recreate the CancellationTokenSource for the next operation
+            CancellationTokenSource = new CancellationTokenSource();
         }
     }
 }
